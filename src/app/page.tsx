@@ -24,7 +24,7 @@ interface Project {
   tech: string[];
   url?: string;
   github?: string;
-  category: 'automation' | 'blockchain' | 'web' | 'ai';
+  category: 'automation' | 'blockchain' | 'web' | 'ai' | 'saas';
   featured: boolean;
 }
 
@@ -38,9 +38,9 @@ interface Skill {
 // データ
 const profileData = {
   name: 'Shuhei HIROSHIMA',
-  title: '自動化・効率化エンジニア',
+  title: 'バックエンドエンジニア / クラウドアーキテクト',
   location: '新潟県',
-  description: 'ビジネス課題を技術で解決し、業務効率化を実現するフリーランスエンジニア。ECサイト運営自動化から、ブロックチェーン技術まで幅広い技術領域での開発経験を持つ。',
+  description: 'Spring Boot × Azureを軸としたバックエンド開発から、AI機能の技術選定・PoC、クラウド基盤構築まで一貫して対応するフリーランスエンジニア。リーガルテック領域でのSaaS開発や、ブロックチェーン技術、業務自動化など幅広い技術領域での実績を持つ。',
   email: 'tumutrading2020@gmail.com'
 };
 
@@ -50,29 +50,60 @@ const skills: Skill[] = [
   { name: 'Spring Boot', level: 4, category: 'backend', years: 4 },
   { name: 'Node.js', level: 4, category: 'backend', years: 4 },
   { name: 'Python', level: 3, category: 'backend', years: 3 },
-  
+
   // Frontend
   { name: 'JavaScript', level: 4, category: 'frontend', years: 4 },
+  { name: 'React', level: 3, category: 'frontend', years: 1 },
   { name: 'Vue.js', level: 4, category: 'frontend', years: 3 },
   { name: 'HTML5', level: 3, category: 'frontend', years: 3 },
   { name: 'CSS3', level: 3, category: 'frontend', years: 3 },
-  
+
   // Infrastructure
+  { name: 'Azure', level: 4, category: 'infrastructure', years: 1 },
   { name: 'AWS', level: 3, category: 'infrastructure', years: 3 },
   { name: 'Docker', level: 3, category: 'infrastructure', years: 2 },
   { name: 'Linux', level: 3, category: 'infrastructure', years: 3 },
-  
+
   // Database
+  { name: 'PostgreSQL', level: 4, category: 'database', years: 1 },
   { name: 'MySQL', level: 4, category: 'database', years: 4 },
   { name: 'DynamoDB', level: 3, category: 'database', years: 2 },
-  
+
   // Tools
   { name: 'Git', level: 4, category: 'tools', years: 4 },
   { name: 'GitHub', level: 4, category: 'tools', years: 4 },
-  { name: 'Slack', level: 4, category: 'tools', years: 4 }
+  { name: 'Claude Code', level: 4, category: 'tools', years: 1 },
+  { name: 'Cursor', level: 3, category: 'tools', years: 1 },
+  { name: 'OpenAPI / Swagger', level: 4, category: 'tools', years: 2 }
 ];
 
 const projects: Project[] = [
+  {
+    id: 'legaltech-saas',
+    title: '金融機関向け遺言信託業務支援SaaS',
+    description: '遺言信託業務を担う金融機関向けのSaaS型業務支援システムの新規開発。バックエンドアーキテクトとして、案件管理・財産管理・相続人管理・面談記録・協議書生成など全APIドメインの設計・実装を担当。Azureクラウド基盤の構築、AI機能（音声文字起こし・ライブ要約・案文自動生成）のPoC、業務支援AIエージェントの設計・実装まで幅広く推進。チーム4名 / 全体7名。',
+    tech: ['Java', 'Spring Boot', 'PostgreSQL', 'Python', 'React', 'Azure Functions', 'Azure OpenAI', 'Docker'],
+    category: 'saas',
+    featured: true
+  },
+  {
+    id: 'mydrip',
+    title: 'MyDrip - ファッションビジュアルブックマーク',
+    description: 'ファッション好きのためのChrome拡張機能。オンラインストアで見つけたアイテムを、画像の自動取得と価格情報とともに保存・整理できるビジュアルブックマーク。',
+    tech: ['Chrome Extension', 'JavaScript'],
+    url: 'https://chromewebstore.google.com/detail/mydrip/ooeohoiabiiimfocifeojoglklcgnefj?hl=ja',
+    category: 'web',
+    featured: true
+  },
+  {
+    id: 'nl27sd-trainer',
+    title: 'No Limit 2-7 Single Draw Trainer',
+    description: 'No Limit 2-7 Single Draw ポーカーに特化したトレーニングアプリ。実践形式の練習、リアルタイムのフィードバック、分析機能を通じて、意思決定力の向上を支援。',
+    tech: ['Next.js', 'TypeScript', 'Vercel'],
+    url: 'https://2-7sdtrainer.vercel.app/',
+    category: 'web',
+    featured: true
+  },
   {
     id: 'crypto-wallet',
     title: '仮想通貨ウォレットシステム',
@@ -96,7 +127,7 @@ const projects: Project[] = [
   tech: ['Astro', 'Tailwind CSS', 'TypeScript', 'Cloudflare Pages'],
   url: 'https://epsom-salt.pages.dev/',
   category: 'web',
-  featured: true
+  featured: false
 },
     {
     id: 'portfolio-site',
@@ -282,16 +313,19 @@ const About = () => {
                 システム開発に従事しました。
               </p>
               <p>
-                現在はフリーランスエンジニアとして活動しています。
+                現在はフリーランスエンジニアとして、リーガルテック領域の
+                SaaS型業務支援システム開発に参画しています。
+                要件整理からDB設計・API実装・Azureクラウド基盤構築・品質改善まで、
+                バックエンド開発のフルサイクルに対応しています。
               </p>
               <p>
-                Spring Bootを中心としたサーバーサイド開発から、AWS Lambda上での
-                サーバーレスアプリケーション、ブロックチェーン技術まで、
-                幅広い技術領域での実装経験を持ちます。
+                直近ではAzure OpenAIやSpeech Serviceを活用した
+                AI機能（音声文字起こし・自動要約・文書自動生成）の
+                技術選定・PoCにも取り組んでいます。
               </p>
               <p>
-                最近では、Claude Code、Bubble、Cursorなどの最新開発ツールを積極的に活用し、
-                従来の開発フローの改善と効率化に取り組んでいます。
+                Claude Code、Cursor、Codexなど最新のAI開発ツールを積極的に導入し、
+                開発生産性の向上を推進しています。
               </p>
             </div>
           </motion.div>
@@ -303,16 +337,16 @@ const About = () => {
             className="grid grid-cols-2 gap-6"
           >
             <div className="text-center p-6 bg-blue-50 rounded-lg">
-              <div className="text-3xl font-bold text-blue-600 mb-2">5年+</div>
-              <div className="text-gray-700">ECサイト運営自動化</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">Azure</div>
+              <div className="text-gray-700">クラウド基盤構築</div>
             </div>
             <div className="text-center p-6 bg-green-50 rounded-lg">
-              <div className="text-3xl font-bold text-green-600 mb-2">10+</div>
-              <div className="text-gray-700">プロジェクト実績</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">AI</div>
+              <div className="text-gray-700">機能設計・PoC</div>
             </div>
             <div className="text-center p-6 bg-purple-50 rounded-lg">
-              <div className="text-3xl font-bold text-purple-600 mb-2">3つ</div>
-              <div className="text-gray-700">専門技術領域</div>
+              <div className="text-3xl font-bold text-purple-600 mb-2">Full</div>
+              <div className="text-gray-700">バックエンド全工程</div>
             </div>
             <div className="text-center p-6 bg-orange-50 rounded-lg">
               <div className="text-3xl font-bold text-orange-600 mb-2">リモート</div>
@@ -410,6 +444,7 @@ const Projects = () => {
   
   const categories = {
     all: 'すべて',
+    saas: 'SaaS',
     automation: '自動化',
     blockchain: 'ブロックチェーン',
     web: 'Webアプリ',
@@ -568,7 +603,7 @@ const Contact = () => {
           <h2 className="text-4xl font-bold text-gray-900 mb-6">Contact</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
           <p className="text-gray-600">
-            自動化・効率化に関するご相談、プロジェクトのお問い合わせはこちらから
+            バックエンド開発・クラウド構築・AI機能に関するご相談はこちらから
           </p>
         </motion.div>
 
@@ -594,10 +629,10 @@ const Contact = () => {
               <h4 className="font-semibold text-gray-900 mb-4">対応可能な案件</h4>
               <ul className="space-y-2 text-gray-700">
                 <li>• Spring Boot / Java バックエンド開発</li>
-                <li>• AWS サーバーレスアプリケーション構築</li>
-                <li>• 業務自動化ツール開発</li>
-                <li>• ECサイト運営システム構築</li>
-                <li>• API開発・外部システム連携</li>
+                <li>• Azureクラウド基盤の設計・構築・運用</li>
+                <li>• AI機能の技術選定・PoC（Azure OpenAI等）</li>
+                <li>• API設計・OpenAPI仕様書整備</li>
+                <li>• 業務自動化ツール・SaaS開発</li>
               </ul>
             </div>
           </motion.div>
@@ -710,18 +745,18 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">{profileData.name}</h3>
             <p className="text-gray-400 mb-4">{profileData.title}</p>
             <p className="text-gray-400 text-sm">
-              業務効率化と自動化を通じて、<br />
-              ビジネスの成長を技術で支援します。
+              バックエンド開発からクラウド基盤構築、<br />
+              AI機能のPoCまで一貫して対応します。
             </p>
           </div>
           
           <div>
             <h4 className="font-semibold mb-4">専門分野</h4>
             <ul className="space-y-2 text-gray-400 text-sm">
-              <li>Spring Boot / Java開発</li>
-              <li>AWS サーバーレス構築</li>
-              <li>業務自動化ツール開発</li>
-              <li>ECサイトシステム構築</li>
+              <li>Spring Boot / Java バックエンド開発</li>
+              <li>Azure クラウド基盤構築・運用</li>
+              <li>AI機能連携（Azure OpenAI）</li>
+              <li>API設計・OpenAPI仕様書整備</li>
             </ul>
           </div>
           
