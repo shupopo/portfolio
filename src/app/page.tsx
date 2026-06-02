@@ -38,9 +38,9 @@ interface Skill {
 // データ
 const profileData = {
   name: 'Shuhei HIROSHIMA',
-  title: 'バックエンドエンジニア / クラウドアーキテクト',
-  location: '新潟県',
-  description: 'Spring Boot × Azureを軸としたバックエンド開発から、AI機能の技術選定・PoC、クラウド基盤構築まで一貫して対応するフリーランスエンジニア。リーガルテック領域でのSaaS開発や、ブロックチェーン技術、業務自動化など幅広い技術領域での実績を持つ。',
+  title: 'フルサイクルエンジニア｜設計からAI・クラウド基盤まで一人で完結',
+  location: '新潟県（フルリモート対応）',
+  description: '要件整理・DB設計・API実装・クラウド基盤構築・AI機能のPoC――バックエンド開発の全工程を1人で完結できるフリーランスエンジニア。金融機関向けSaaS開発ではアーキテクトとして全APIドメインの設計からAzureインフラ構築、AIエージェント実装まで推進。iOSアプリやChrome拡張のストア公開実績も持ち、「作って終わり」ではなくプロダクトとして届けるところまで担います。',
   email: 'tumutrading2020@gmail.com'
 };
 
@@ -105,6 +105,15 @@ const projects: Project[] = [
     featured: true
   },
   {
+    id: 'jpy-to-krw',
+    title: 'JPY to KRW - 日本円↔韓国ウォン換算アプリ',
+    description: 'リアルタイム為替レートを取得し、日本円と韓国ウォンを即座に換算できるiOSアプリ。電卓風のキーパッドUIでシンプルに操作可能。Flutterで開発し、App Storeにて公開中。',
+    tech: ['Flutter', 'Dart', 'iOS'],
+    url: 'https://apps.apple.com/jp/app/jpy-to-krw/id6766007368',
+    category: 'web',
+    featured: true
+  },
+  {
     id: 'crypto-wallet',
     title: '仮想通貨ウォレットシステム',
     description: 'AWS Lambda上で動作するサーバーレス仮想通貨ウォレット。Bitcoin・Ethereum両通貨対応のマルチウォレット機能。ブロックチェーン取引監視、アドレス管理、残高管理を自動化。',
@@ -143,6 +152,30 @@ const projects: Project[] = [
     title: 'ECサイト運営自動化ツール',
     description: '自身が運営するAmazon、Yahoo Shopping、au PAYマーケット向けの業務自動化システム。商品リサーチ、出品、価格管理、在庫管理を完全自動化し、大幅な工数削減を実現。',
     tech: ['Node.js', 'Python', 'Amazon MWS API', 'Yahoo Shopping API', 'Puppeteer'],
+    category: 'automation',
+    featured: false
+  },
+  {
+    id: 'stock-portfolio-gas',
+    title: '株式ポートフォリオ自動管理ツール',
+    description: 'J-Quants APIとGoogle Apps Scriptを連携し、Googleスプレッドシート上で日本株の株価・配当・評価額を自動取得・計算するツール。四本値取得、前日比計算、含み損益算出、過去データ蓄積まで一括処理。',
+    tech: ['Google Apps Script', 'J-Quants API', 'Google Sheets'],
+    category: 'automation',
+    featured: false
+  },
+  {
+    id: 'chatbot-rina',
+    title: 'LINE社長Botチャットボット',
+    description: 'LINE Messaging API × n8n × Difyを連携した業務支援チャットボット。社長のペルソナを持つAIが在庫照会や問い合わせに自然言語で応答。スマレジAPI連携による商品・在庫情報の取得にも対応。',
+    tech: ['n8n', 'Dify', 'LINE Messaging API', 'スマレジAPI'],
+    category: 'ai',
+    featured: false
+  },
+  {
+    id: 'pdf-retriever',
+    title: '厚生労働省PDF自動収集ツール',
+    description: '厚生労働省ウェブサイトから「化粧品基準」関連の日本語版PDFのみを自動収集し、Google Driveに保存するCLIツール。抽出条件フィルタリング、リトライ機能、メタデータ付与に対応。',
+    tech: ['Node.js', 'TypeScript', 'Google Apps Script', 'Cheerio'],
     category: 'automation',
     featured: false
   },
@@ -305,27 +338,27 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">エンジニアとしての歩み</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">1人で設計から本番運用まで</h3>
             <div className="space-y-4 text-gray-700">
               <p>
-                大手プログラミングスクールでのインターン経験を経て、
-                上場ITコンサルティング企業にてブロックチェーン技術の
-                システム開発に従事しました。
+                上場ITコンサルティング企業でのブロックチェーン開発を経て、
+                現在はフリーランスとして金融機関向けSaaSの開発に参画。
+                4名チームのバックエンド全域を担い、
+                20以上のAPIドメイン設計からAzureインフラ構築・運用まで一貫して推進しています。
               </p>
               <p>
-                現在はフリーランスエンジニアとして、リーガルテック領域の
-                SaaS型業務支援システム開発に参画しています。
-                要件整理からDB設計・API実装・Azureクラウド基盤構築・品質改善まで、
-                バックエンド開発のフルサイクルに対応しています。
+                Azure OpenAI・Speech Serviceを活用したAI機能（音声文字起こし・
+                ライブ要約・公正証書案文の自動生成）の技術選定からPoC実装まで
+                単独で完遂。業務支援AIエージェントの設計・実装も手がけています。
               </p>
               <p>
-                直近ではAzure OpenAIやSpeech Serviceを活用した
-                AI機能（音声文字起こし・自動要約・文書自動生成）の
-                技術選定・PoCにも取り組んでいます。
+                個人プロダクトではiOSアプリのApp Store公開、Chrome拡張の
+                Web Store公開など、実装だけでなくユーザーに届けるところまで
+                一人で完結させた実績があります。
               </p>
               <p>
-                Claude Code、Cursor、Codexなど最新のAI開発ツールを積極的に導入し、
-                開発生産性の向上を推進しています。
+                Claude Code・Cursor・Codexなど最新のAI開発ツールを導入し、
+                少人数でも大きなスコープをカバーする開発体制を構築しています。
               </p>
             </div>
           </motion.div>
@@ -337,20 +370,20 @@ const About = () => {
             className="grid grid-cols-2 gap-6"
           >
             <div className="text-center p-6 bg-blue-50 rounded-lg">
-              <div className="text-3xl font-bold text-blue-600 mb-2">Azure</div>
-              <div className="text-gray-700">クラウド基盤構築</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">20+</div>
+              <div className="text-gray-700">APIドメイン設計実績</div>
             </div>
             <div className="text-center p-6 bg-green-50 rounded-lg">
-              <div className="text-3xl font-bold text-green-600 mb-2">AI</div>
-              <div className="text-gray-700">機能設計・PoC</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">全工程</div>
+              <div className="text-gray-700">設計〜インフラ〜AI</div>
             </div>
             <div className="text-center p-6 bg-purple-50 rounded-lg">
-              <div className="text-3xl font-bold text-purple-600 mb-2">Full</div>
-              <div className="text-gray-700">バックエンド全工程</div>
+              <div className="text-3xl font-bold text-purple-600 mb-2">公開済</div>
+              <div className="text-gray-700">App Store / Web Store</div>
             </div>
             <div className="text-center p-6 bg-orange-50 rounded-lg">
-              <div className="text-3xl font-bold text-orange-600 mb-2">リモート</div>
-              <div className="text-gray-700">ワークスタイル</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">複数業界</div>
+              <div className="text-gray-700">金融・EC・学術・美容</div>
             </div>
           </motion.div>
         </div>
@@ -603,7 +636,7 @@ const Contact = () => {
           <h2 className="text-4xl font-bold text-gray-900 mb-6">Contact</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
           <p className="text-gray-600">
-            バックエンド開発・クラウド構築・AI機能に関するご相談はこちらから
+            「設計から実装・インフラまで任せたい」案件のご相談はこちらから
           </p>
         </motion.div>
 
@@ -613,7 +646,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">お気軽にお問い合わせください</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">こんなお悩みに対応できます</h3>
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <MapPin className="text-blue-600" size={20} />
@@ -624,15 +657,15 @@ const Contact = () => {
                 <span className="text-gray-700">お問い合わせフォームをご利用ください</span>
               </div>
             </div>
-            
+
             <div className="mt-8">
-              <h4 className="font-semibold text-gray-900 mb-4">対応可能な案件</h4>
+              <h4 className="font-semibold text-gray-900 mb-4">得意な案件</h4>
               <ul className="space-y-2 text-gray-700">
-                <li>• Spring Boot / Java バックエンド開発</li>
-                <li>• Azureクラウド基盤の設計・構築・運用</li>
-                <li>• AI機能の技術選定・PoC（Azure OpenAI等）</li>
-                <li>• API設計・OpenAPI仕様書整備</li>
-                <li>• 業務自動化ツール・SaaS開発</li>
+                <li>• バックエンド設計〜実装〜インフラを一人に任せたい</li>
+                <li>• SaaS新規開発でAPI設計から基盤構築まで必要</li>
+                <li>• AI機能（生成AI・音声認識等）のPoC〜本番導入</li>
+                <li>• 既存業務の自動化・外部API連携ツールの開発</li>
+                <li>• iOSアプリ・Chrome拡張などプロダクトの企画〜公開</li>
               </ul>
             </div>
           </motion.div>
@@ -743,20 +776,20 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-4">{profileData.name}</h3>
-            <p className="text-gray-400 mb-4">{profileData.title}</p>
+            <p className="text-gray-400 mb-4">フルサイクルエンジニア</p>
             <p className="text-gray-400 text-sm">
-              バックエンド開発からクラウド基盤構築、<br />
-              AI機能のPoCまで一貫して対応します。
+              設計・実装・インフラ・AI を一人で完結。<br />
+              少人数チームの推進力になります。
             </p>
           </div>
-          
+
           <div>
-            <h4 className="font-semibold mb-4">専門分野</h4>
+            <h4 className="font-semibold mb-4">提供価値</h4>
             <ul className="space-y-2 text-gray-400 text-sm">
-              <li>Spring Boot / Java バックエンド開発</li>
-              <li>Azure クラウド基盤構築・運用</li>
-              <li>AI機能連携（Azure OpenAI）</li>
-              <li>API設計・OpenAPI仕様書整備</li>
+              <li>設計〜実装〜インフラの一気通貫対応</li>
+              <li>AI機能のPoC〜本番導入（Azure OpenAI）</li>
+              <li>API設計・OpenAPI仕様によるチーム連携</li>
+              <li>プロダクト公開（App Store / Web Store）</li>
             </ul>
           </div>
           
