@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   Github, 
@@ -33,6 +34,8 @@ interface Skill {
   level: number;
   category: 'frontend' | 'backend' | 'infrastructure' | 'database' | 'tools';
   years: number;
+  scope: string;
+  evidence: string;
 }
 
 // データ
@@ -46,35 +49,35 @@ const profileData = {
 
 const skills: Skill[] = [
   // Backend
-  { name: 'Java', level: 4, category: 'backend', years: 4 },
-  { name: 'Spring Boot', level: 4, category: 'backend', years: 4 },
-  { name: 'Node.js', level: 4, category: 'backend', years: 4 },
-  { name: 'Python', level: 3, category: 'backend', years: 3 },
+  { name: 'Java', level: 4, category: 'backend', years: 4, scope: '業務APIの設計・実装・改修', evidence: '金融機関向けSaaS、仮想通貨ウォレット、学術DBでサーバサイド開発を担当' },
+  { name: 'Spring Boot', level: 4, category: 'backend', years: 4, scope: 'REST API、ドメイン設計、保守運用', evidence: '遺言信託SaaSで案件管理・財産管理・相続人管理など複数APIドメインを設計' },
+  { name: 'Node.js', level: 4, category: 'backend', years: 4, scope: '外部API連携・自動化処理', evidence: 'EC運営自動化、Chrome拡張、PDF収集CLI、仮想通貨関連処理で利用' },
+  { name: 'Python', level: 3, category: 'backend', years: 3, scope: 'AI機能PoC・データ処理', evidence: 'Azure OpenAI / Speech Service連携、音声文字起こし・要約・案文生成の検証を担当' },
 
   // Frontend
-  { name: 'JavaScript', level: 4, category: 'frontend', years: 4 },
-  { name: 'React', level: 3, category: 'frontend', years: 1 },
-  { name: 'Vue.js', level: 4, category: 'frontend', years: 3 },
-  { name: 'HTML5', level: 3, category: 'frontend', years: 3 },
-  { name: 'CSS3', level: 3, category: 'frontend', years: 3 },
+  { name: 'JavaScript', level: 4, category: 'frontend', years: 4, scope: '画面実装・ブラウザ拡張・業務ツール', evidence: 'Chrome Web Store公開済み拡張、管理画面、各種自動化ツールで利用' },
+  { name: 'React', level: 3, category: 'frontend', years: 1, scope: '業務画面の実装・API接続', evidence: '金融機関向けSaaSのフロントエンド実装とポートフォリオサイトで利用' },
+  { name: 'Vue.js', level: 4, category: 'frontend', years: 3, scope: '既存画面改修・UI改善', evidence: '学術向け画像解析DBなどでUI改善・外部DB連携画面を担当' },
+  { name: 'HTML5', level: 3, category: 'frontend', years: 3, scope: 'レスポンシブなWeb画面構築', evidence: 'LP、業務画面、個人プロダクトで使用' },
+  { name: 'CSS3', level: 3, category: 'frontend', years: 3, scope: 'UI調整・ランディングページ制作', evidence: 'Tailwind CSSを含むWebページ制作、LP改善で使用' },
 
   // Infrastructure
-  { name: 'Azure', level: 4, category: 'infrastructure', years: 1 },
-  { name: 'AWS', level: 3, category: 'infrastructure', years: 3 },
-  { name: 'Docker', level: 3, category: 'infrastructure', years: 2 },
-  { name: 'Linux', level: 3, category: 'infrastructure', years: 3 },
+  { name: 'Azure', level: 4, category: 'infrastructure', years: 1, scope: 'クラウド基盤構築・運用', evidence: 'App Service、Static Web Apps、Azure Functions、PostgreSQL、Blob Storage、Azure OpenAIを構築' },
+  { name: 'AWS', level: 3, category: 'infrastructure', years: 3, scope: 'サーバーレス処理・監視', evidence: 'AWS Lambda / DynamoDBを用いた仮想通貨ウォレット、SNS、Parameter Store連携を経験' },
+  { name: 'Docker', level: 3, category: 'infrastructure', years: 2, scope: '開発環境整備・実行環境の再現性確保', evidence: 'Spring Boot / DB構成のローカル環境、チーム開発環境で利用' },
+  { name: 'Linux', level: 3, category: 'infrastructure', years: 3, scope: 'CLI操作・ログ確認・デプロイ作業', evidence: 'Webアプリ運用、CI/CD、クラウド環境の調査と保守で使用' },
 
   // Database
-  { name: 'PostgreSQL', level: 4, category: 'database', years: 1 },
-  { name: 'MySQL', level: 4, category: 'database', years: 4 },
-  { name: 'DynamoDB', level: 3, category: 'database', years: 2 },
+  { name: 'PostgreSQL', level: 4, category: 'database', years: 1, scope: 'テーブル設計・SQL実装・マイグレーション', evidence: '金融機関向けSaaSでAzure Database for PostgreSQLとFlywayを利用' },
+  { name: 'MySQL', level: 4, category: 'database', years: 4, scope: '既存DB改修・外部DB連携', evidence: '学術向け画像解析DB、EC関連データ処理で利用' },
+  { name: 'DynamoDB', level: 3, category: 'database', years: 2, scope: 'サーバーレス構成のデータ管理', evidence: '仮想通貨ウォレットのアドレス・残高・取引監視データで利用' },
 
   // Tools
-  { name: 'Git', level: 4, category: 'tools', years: 4 },
-  { name: 'GitHub', level: 4, category: 'tools', years: 4 },
-  { name: 'Claude Code', level: 4, category: 'tools', years: 1 },
-  { name: 'Cursor', level: 3, category: 'tools', years: 1 },
-  { name: 'OpenAPI / Swagger', level: 4, category: 'tools', years: 2 }
+  { name: 'Git', level: 4, category: 'tools', years: 4, scope: 'ブランチ運用・差分管理・レビュー対応', evidence: '業務委託案件と個人プロダクトの継続開発で日常的に利用' },
+  { name: 'GitHub', level: 4, category: 'tools', years: 4, scope: 'Issue管理・PR運用・CI/CD', evidence: 'GitHub Actionsによる自動デプロイ、PRベースの開発で利用' },
+  { name: 'Claude Code', level: 4, category: 'tools', years: 1, scope: 'AI支援による実装・調査・リファクタリング', evidence: 'ブラウザゲーム、業務支援AIエージェント、既存コード調査で活用' },
+  { name: 'Cursor', level: 3, category: 'tools', years: 1, scope: 'AI支援開発・プロトタイピング', evidence: '小規模アプリ開発と既存コードの改善で利用' },
+  { name: 'OpenAPI / Swagger', level: 4, category: 'tools', years: 2, scope: 'API仕様整理・フロントエンド連携', evidence: '金融機関向けSaaSでAPI仕様の確認、疎通、実装調整に利用' }
 ];
 
 const projects: Project[] = [
@@ -222,11 +225,17 @@ const projects: Project[] = [
 // コンポーネント
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
   const headerBg = useTransform(scrollY, [0, 100], ["rgba(255,255,255,0)", "rgba(255,255,255,0.95)"]);
 
+  useEffect(() => {
+    const unsubscribe = scrollY.on('change', (v) => setIsScrolled(v > 100));
+    return () => unsubscribe();
+  }, [scrollY]);
+
   return (
-    <motion.header 
+    <motion.header
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
       style={{ backgroundColor: headerBg }}
     >
@@ -234,17 +243,17 @@ const Header = () => {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-xl font-bold text-gray-900"
+          className={`text-xl font-bold transition-colors duration-300 ${isScrolled ? 'text-gray-900' : 'text-white'}`}
         >
           Shuhei HIROSHIMA
         </motion.div>
-        
+
         <nav className="hidden md:flex space-x-8">
           {['About', 'Skills', 'Works', 'Contact'].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
-              className="text-gray-700 hover:text-blue-600 transition-colors"
+              className={`transition-colors duration-300 ${isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white/80 hover:text-white'}`}
             >
               {item}
             </a>
@@ -252,7 +261,7 @@ const Header = () => {
         </nav>
 
         <button
-          className="md:hidden"
+          className={`md:hidden transition-colors duration-300 ${isScrolled ? 'text-gray-900' : 'text-white'}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -283,29 +292,39 @@ const Header = () => {
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white">
-      <div className="max-w-4xl mx-auto px-6 text-center">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0">
+        <Image
+          src="/portfolio/images/hero-bg.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/70 to-indigo-900/80" />
+      </div>
+      <div className="relative max-w-4xl mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
             {profileData.name}
           </h1>
-          <p className="text-xl md:text-2xl text-blue-600 mb-8 font-medium">
+          <p className="text-xl md:text-2xl text-blue-200 mb-8 font-medium">
             {profileData.title}
           </p>
-          <div className="flex items-center justify-center space-x-2 text-gray-600 mb-8">
+          <div className="flex items-center justify-center space-x-2 text-blue-100 mb-8">
             <MapPin size={20} />
             <span>{profileData.location}</span>
           </div>
-          <p className="text-lg text-gray-700 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-blue-50/90 mb-12 max-w-3xl mx-auto leading-relaxed">
             {profileData.description}
           </p>
           <motion.a
             href="#about"
-            className="inline-flex items-center space-x-2 bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center space-x-2 bg-white text-blue-700 px-8 py-4 rounded-lg hover:bg-blue-50 transition-colors font-semibold shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -330,6 +349,21 @@ const About = () => {
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-6">About</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative w-full max-w-3xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-xl"
+        >
+          <Image
+            src="/portfolio/images/about-illustration.jpg"
+            alt="フルサイクル開発のワークフロー"
+            width={1024}
+            height={576}
+            className="w-full h-auto"
+          />
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -383,7 +417,7 @@ const About = () => {
             </div>
             <div className="text-center p-6 bg-orange-50 rounded-lg">
               <div className="text-3xl font-bold text-orange-600 mb-2">複数業界</div>
-              <div className="text-gray-700">金融・EC・学術・美容</div>
+              <div className="text-gray-700">金融・EC・学術・教育</div>
             </div>
           </motion.div>
         </div>
@@ -406,16 +440,25 @@ const Skills = () => {
   const filteredSkills = skills.filter(skill => skill.category === activeCategory);
 
   return (
-    <section id="skills" className="py-20 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="skills" className="relative py-20 overflow-hidden">
+      <div className="absolute inset-0">
+        <Image
+          src="/portfolio/images/skills-bg.jpg"
+          alt=""
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gray-900/85" />
+      </div>
+      <div className="relative max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Skills</h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+          <h2 className="text-4xl font-bold text-white mb-6">Skills</h2>
+          <div className="w-20 h-1 bg-blue-400 mx-auto"></div>
         </motion.div>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -425,8 +468,8 @@ const Skills = () => {
               onClick={() => setActiveCategory(key)}
               className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                 activeCategory === key
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-blue-50'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-white/10 text-gray-200 hover:bg-white/20'
               }`}
             >
               {label}
@@ -446,22 +489,24 @@ const Skills = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white p-6 rounded-lg shadow-sm"
+              className="bg-white/10 backdrop-blur-sm border border-white/10 p-6 rounded-lg"
             >
-              <div className="flex justify-between items-center mb-3">
-                <h3 className="font-semibold text-gray-900">{skill.name}</h3>
-                <span className="text-sm text-gray-500">{skill.years}年</span>
+              <div className="flex justify-between items-start gap-4 mb-3">
+                <h3 className="font-semibold text-white">{skill.name}</h3>
+                <span className="shrink-0 text-sm text-blue-300">{skill.years}年</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+              <p className="text-sm font-medium text-blue-300 mb-3">{skill.scope}</p>
+              <p className="text-sm text-gray-300 leading-relaxed mb-4">{skill.evidence}</p>
+              <div className="w-full bg-white/20 rounded-full h-2 mb-2">
                 <motion.div
-                  className="bg-blue-600 h-2 rounded-full"
+                  className="bg-blue-400 h-2 rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${(skill.level / 5) * 100}%` }}
                   transition={{ duration: 1, delay: index * 0.1 }}
                 />
               </div>
-              <div className="flex justify-between text-sm text-gray-600">
-                <span>レベル</span>
+              <div className="flex justify-between text-sm text-gray-400">
+                <span>実務習熟度</span>
                 <span>{skill.level}/5</span>
               </div>
             </motion.div>
@@ -499,6 +544,22 @@ const Projects = () => {
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-6">Works</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative w-full max-w-4xl mx-auto mb-12 rounded-2xl overflow-hidden shadow-lg"
+        >
+          <Image
+            src="/portfolio/images/works-header.jpg"
+            alt="プロジェクト実績"
+            width={1024}
+            height={576}
+            className="w-full h-auto"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
         </motion.div>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -625,8 +686,17 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-50">
-      <div className="max-w-4xl mx-auto px-6">
+    <section id="contact" className="relative py-20 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50" />
+      <div className="absolute right-0 top-0 w-1/2 h-full opacity-20 hidden lg:block">
+        <Image
+          src="/portfolio/images/contact-illustration.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+        />
+      </div>
+      <div className="relative max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
