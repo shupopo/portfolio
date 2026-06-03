@@ -25,6 +25,7 @@ interface Project {
   tech: string[];
   url?: string;
   github?: string;
+  image?: string;
   category: 'automation' | 'blockchain' | 'web' | 'ai' | 'saas';
   featured: boolean;
 }
@@ -95,6 +96,7 @@ const projects: Project[] = [
     description: 'ファッション好きのためのChrome拡張機能。オンラインストアで見つけたアイテムを、画像の自動取得と価格情報とともに保存・整理できるビジュアルブックマーク。',
     tech: ['Chrome Extension', 'JavaScript'],
     url: 'https://chromewebstore.google.com/detail/mydrip/ooeohoiabiiimfocifeojoglklcgnefj?hl=ja',
+    image: '/portfolio/images/mydrip.png',
     category: 'web',
     featured: true
   },
@@ -104,6 +106,7 @@ const projects: Project[] = [
     description: 'No Limit 2-7 Single Draw ポーカーに特化したトレーニングアプリ。実践形式の練習、リアルタイムのフィードバック、分析機能を通じて、意思決定力の向上を支援。',
     tech: ['Next.js', 'TypeScript', 'Vercel'],
     url: 'https://2-7sdtrainer.vercel.app/',
+    image: '/portfolio/images/nl27sd-trainer.jpg',
     category: 'web',
     featured: true
   },
@@ -113,6 +116,7 @@ const projects: Project[] = [
     description: 'リアルタイム為替レートを取得し、日本円と韓国ウォンを即座に換算できるiOSアプリ。電卓風のキーパッドUIでシンプルに操作可能。Flutterで開発し、App Storeにて公開中。',
     tech: ['Flutter', 'Dart', 'iOS'],
     url: 'https://apps.apple.com/jp/app/jpy-to-krw/id6766007368',
+    image: '/portfolio/images/jpy-to-krw.png',
     category: 'web',
     featured: true
   },
@@ -385,7 +389,7 @@ const About = () => {
               </p>
               <p>
                 個人プロダクトではiOSアプリのApp Store公開、Chrome拡張の
-                Web Store公開など、実装だけでなくユーザーに届けるところまで
+                Chrome Web Store公開など、実装だけでなくユーザーに届けるところまで
                 一人で完結させた実績があります。
               </p>
               <p>
@@ -411,7 +415,7 @@ const About = () => {
             </div>
             <div className="text-center p-6 bg-purple-50 rounded-lg">
               <div className="text-3xl font-bold text-purple-600 mb-2">公開済</div>
-              <div className="text-gray-700">App Store / Web Store</div>
+              <div className="text-gray-700">App Store / Chrome Web Store</div>
             </div>
             <div className="text-center p-6 bg-orange-50 rounded-lg">
               <div className="text-3xl font-bold text-orange-600 mb-2">複数業界</div>
@@ -577,6 +581,17 @@ const Projects = () => {
                   FEATURED
                 </div>
               )}
+              {project.image && (
+                <div className="bg-gray-100 flex justify-center p-3">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    width={400}
+                    height={300}
+                    className="rounded-lg object-contain max-h-48 w-auto"
+                  />
+                </div>
+              )}
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
                 <p className="text-gray-600 mb-4 text-sm leading-relaxed">{project.description}</p>
@@ -669,15 +684,7 @@ const Contact = () => {
 
   return (
     <section id="contact" className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50" />
-      <div className="absolute right-0 top-0 w-1/2 h-full opacity-20 hidden lg:block">
-        <Image
-          src="/portfolio/images/contact-illustration.jpg"
-          alt=""
-          fill
-          className="object-cover object-center"
-        />
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white" />
       <div className="relative max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -841,7 +848,7 @@ const Footer = () => {
               <li>設計〜実装〜インフラの一気通貫対応</li>
               <li>AI機能のPoC〜本番導入（Azure OpenAI）</li>
               <li>API設計・OpenAPI仕様によるチーム連携</li>
-              <li>プロダクト公開（App Store / Web Store）</li>
+              <li>プロダクト公開（App Store / Chrome Web Store）</li>
             </ul>
           </div>
           
