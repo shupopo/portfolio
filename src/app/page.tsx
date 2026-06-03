@@ -322,15 +322,28 @@ const Hero = () => {
           <p className="text-lg text-blue-50/90 mb-12 max-w-3xl mx-auto leading-relaxed">
             {profileData.description}
           </p>
-          <motion.a
-            href="#about"
-            className="inline-flex items-center space-x-2 bg-white text-blue-700 px-8 py-4 rounded-lg hover:bg-blue-50 transition-colors font-semibold shadow-lg"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span>詳細を見る</span>
-            <ChevronDown size={20} />
-          </motion.a>
+          <div className="flex items-center justify-center space-x-4">
+            <motion.a
+              href="#about"
+              className="inline-flex items-center space-x-2 bg-white text-blue-700 px-8 py-4 rounded-lg hover:bg-blue-50 transition-colors font-semibold shadow-lg"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>詳細を見る</span>
+              <ChevronDown size={20} />
+            </motion.a>
+            <motion.a
+              href="https://github.com/shupopo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 bg-white/10 text-white border border-white/30 px-8 py-4 rounded-lg hover:bg-white/20 transition-colors font-semibold"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Github size={20} />
+              <span>GitHub</span>
+            </motion.a>
+          </div>
         </motion.div>
       </div>
     </section>
@@ -349,21 +362,6 @@ const About = () => {
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-6">About</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative w-full max-w-3xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-xl"
-        >
-          <Image
-            src="/portfolio/images/about-illustration.jpg"
-            alt="フルサイクル開発のワークフロー"
-            width={1024}
-            height={576}
-            className="w-full h-auto"
-          />
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -544,22 +542,6 @@ const Projects = () => {
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-6">Works</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative w-full max-w-4xl mx-auto mb-12 rounded-2xl overflow-hidden shadow-lg"
-        >
-          <Image
-            src="/portfolio/images/works-header.jpg"
-            alt="プロジェクト実績"
-            width={1024}
-            height={576}
-            className="w-full h-auto"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
         </motion.div>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">
